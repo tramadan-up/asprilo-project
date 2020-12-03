@@ -46,4 +46,4 @@ bash run.sh
 If you experience any issues feel free to contact me via [e-mail](mailto:tramadan.up@gmail.com>).
 
 ## License
-See LICENSE.
+See `LICENSE` and `asprilo-encodings/LICENSE`respectively.
