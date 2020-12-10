@@ -1,4 +1,4 @@
-##forced waiting
+## forced waiting
 These benchmarks attempt to enforce a sidestep and/or a waiting phase from one of the robots to let the other robot pass.
 
 `forced_waiting.lp` has a gap that has to be used properly in order to solve this instance. 
