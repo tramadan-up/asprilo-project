@@ -133,12 +133,12 @@ init(object(highway, 74), value(at, (8, 7))).
 init(object(highway, 75), value(at, (9, 7))).
 init(object(highway, 56), value(at, (1, 6))).
 init(object(highway, 66), value(at, (11, 6))).
-%init(object(robot,1), value(at,(1,7))).
-%init(object(robot,1), value(max_energy,0)).
-%init(object(robot,1), value(energy,0)).
-%init(object(robot,2), value(at,(11,7))).
-%init(object(robot,2), value(max_energy,0)).
-%init(object(robot,2), value(energy,0)).
+init(object(robot,1), value(at,(1,7))).
+init(object(robot,1), value(max_energy,0)).
+init(object(robot,1), value(energy,0)).
+init(object(robot,2), value(at,(11,7))).
+init(object(robot,2), value(max_energy,0)).
+init(object(robot,2), value(energy,0)).
 init(object(robot,3), value(at,(6,1))).
 init(object(robot,3), value(max_energy,0)).
 init(object(robot,3), value(energy,0)).
@@ -155,10 +155,10 @@ init(object(shelf,3), value(at,(6,7))).
 init(object(product,3),value(on,(3,3))).
 init(object(shelf,4), value(at,(11,5))).
 init(object(product,4),value(on,(4,4))).
-%init(object(order,1),value(pickingStation,1)).
-%init(object(order,1),value(line,(1,1))).
-%init(object(order,2),value(pickingStation,2)).
-%init(object(order,2),value(line,(2,2))).
+init(object(order,1),value(pickingStation,1)).
+init(object(order,1),value(line,(1,1))).
+init(object(order,2),value(pickingStation,2)).
+init(object(order,2),value(line,(2,2))).
 init(object(order,3),value(pickingStation,1)).
 init(object(order,3),value(line,(3,3))).
 init(object(order,4),value(pickingStation,2)).
