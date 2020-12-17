@@ -27,7 +27,7 @@ After cloning/downloading you'll need to install a variety of tools and programs
 ## Usage
 
 Load the benchmark you want to test into the lab folder and rename it to `instance.lp`.
-Adjust the horizon variable in the `run_benchmark.sh` script and run it using `bash run_benchmark.sh`.
+Adjust the horizon variable in `run_benchmark.sh` and run it using `bash run_benchmark.sh`.
 It will plan two individual plans for two robots, try to merge them by detecting collisions and replan accordingly.
 Upon completion it will open the asprilo Visualizer with the benchmark and the newly generated plan.
 
