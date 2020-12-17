@@ -23,6 +23,16 @@ After cloning/downloading you'll need to install a variety of tools and programs
 ### Anaconda
 [https://www.anaconda.com/](https://www.anaconda.com/)
 
+
+## Usage
+
+Load the benchmark you want to test into the lab folder and rename it to `instance.lp`.
+Adjust the horizon variable in the `run_benchmark.sh` script and run it using `bash run_benchmark.sh`.
+It will plan two individual plans for two robots, try to merge them by detecting collisions and replan accordingly.
+Upon completion it will open the asprilo Visualizer with the benchmark and the newly generated plan.
+
+You can use `bash clear_lab.sh` to delete all generated files.
+
 ## Contact
 
 If you experience any issues feel free to contact me via [e-mail](mailto:tramadan.up@gmail.com>).
