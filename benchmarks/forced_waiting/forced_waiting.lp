@@ -1,3 +1,6 @@
+% forced_waiting.lp
+% horizon=9
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Grid size X: 7
 %Grid size Y: 2
