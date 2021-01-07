@@ -14,7 +14,7 @@ collision((X,Y),T) :- pos(robot(R),(X,Y),T), pos(robot(R'),(X,Y),T), R!=R'.
 occurs(object(robot,R),action(move,(U,V)),T) :- occ(object(robot,R),action(move,(U,V)),T), not collision((_,_),T), fcol(T'), T<T'.
 
 % classification of collision (what is the position before the collision? -> in which direction does one of the robots move? -> right=1, up=2, down=3)
-ccol((X,Y),T,1) :- collision((X,Y),T), fcol(T), pos(robot(R),(X-1,Y),T-1), pos(robot(R'),(X+1,Y),T-1), R!=R'.
+ccol((X,Y),T,1) :- cmerge_pollision((X,Y),T), fcol(T), pos(robot(R),(X-1,Y),T-1), pos(robot(R'),(X+1,Y),T-1), R!=R'.
 ccol((X,Y),T,2) :- collision((X,Y),T), fcol(T), pos(robot(R),(X,Y+1),T-1), pos(robot(R'),(X,Y-1),T-1), R!=R'.
 ccol((X,Y),T,1) :- collision((X,Y),T), fcol(T), pos(robot(R),(X-1,Y),T-1), pos(robot(R'),(X,Y+1),T-1), R!=R'.
 ccol((X,Y),T,2) :- collision((X,Y),T), fcol(T), pos(robot(R),(X+1,Y),T-1), pos(robot(R'),(X,Y+1),T-1), R!=R'.
@@ -42,6 +42,17 @@ switching_places((X,Y),T,R,R',1) :- ccol((X,Y),T,C), pos(robot(R),(X+1,Y),T+1), 
 switching_places((X,Y),T,R,R',2) :- ccol((X,Y),T,C), pos(robot(R),(X-1,Y),T+1), pos(robot(R'),(X,Y),T), pos(robot(R'),(X-1,Y),T-1), occurs(object(robot,R),action(move,(_,_)),T), R!=R'.
 switching_places((X,Y),T,R,R',3) :- ccol((X,Y),T,C), pos(robot(R),(X,Y+1),T+1), pos(robot(R'),(X,Y),T), pos(robot(R'),(X,Y+1),T-1), occurs(object(robot,R),action(move,(_,_)),T), R!=R'.
 switching_places((X,Y),T,R,R',4) :- ccol((X,Y),T,C), pos(robot(R),(X,Y-1),T+1), pos(robot(R'),(X,Y),T), pos(robot(R'),(X,Y-1),T-1), occurs(object(robot,R),action(move,(_,_)),T), R!=R'.
+
+% pooling (looking for a gap two swap), code currently only works if there is a gap to search for
+% pool to the right 
+pool((X,Y),(X',Y),1,S) :- switching_places((X,Y),T,R,R',1), not solvable((X,Y),T,1,_), position((X',Y-1)), X'=X+2..T', T'=H-T, hrzn(H), S=(X'-X).
+% nearest gap
+1{mpool((X,Y),(Z,Y),1,S): pool((X,Y),(Z,Y),1,S), pool((X,Y),(Z',Y),1,S'), Z!=Z', S<=S'}1.
+:- mpool((X,Y),(_,Y),1,S), pool((X,Y),(_,Y),1,S'), S>S'.
+% robots move together to the gap
+switching_places((X',Y),T',R,R',1) :- switching_places((X,Y),T,R,R',1), pool((X,Y),(X',Y),1,S), mpool((X,Y),(X',Y),1,S), T'=T+S.
+occurs(object(robot,R),action(move,(1,0)),(T+1)..T') :- switching_places((X,Y),T,R,R',1), mpool((X,Y),(X',Y),1,S), switching_places((X',Y),T',R,R',1).
+occurs(object(robot,R'),action(move,(1,0)),(T+1)..T') :- switching_places((X,Y),T,R,R',1), mpool((X,Y),(X',Y),1,S), switching_places((X',Y),T',R,R',1).
 
 
 #show.
