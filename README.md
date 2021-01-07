@@ -4,8 +4,8 @@ This is a repository for a project with [asprilo](https://asprilo.github.io/) at
 It is currently under development and will grow dynamically as part of the project.
 
 In it's current state it contains a simple script that aims at merging two individually planed paths for two different robots.
-This is done by collision detection and replaning before the collision would occur. 
-This strategy will be further explored in the future with the goal of minimizing the part of the merged plan that has to be replaned.
+This is done by collision detection and forcing the robots into switching places.
+There are currently two working prototypes in this repository. They solve the benchmarks `forced_waiting.lp` and `forced_waiting_v2.lp` respectively.
 
 ## Installation
 
@@ -28,6 +28,7 @@ After cloning/downloading you'll need to install a variety of tools and programs
 
 Load the benchmark you want to test into the lab folder and rename it to `instance.lp`.
 Adjust the horizon variable in `run_benchmark.sh` and run it using `bash run_benchmark.sh`.
+Be sure to use the right prototype for the benchmark you want test.
 It will plan two individual plans for two robots, try to merge them by detecting collisions and replan accordingly.
 Upon completion it will open the asprilo Visualizer with the benchmark and the newly generated plan.
 

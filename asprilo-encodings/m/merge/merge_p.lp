@@ -14,7 +14,7 @@ collision((X,Y),T) :- pos(robot(R),(X,Y),T), pos(robot(R'),(X,Y),T), R!=R'.
 occurs(object(robot,R),action(move,(U,V)),T) :- occ(object(robot,R),action(move,(U,V)),T), not collision((_,_),T), fcol(T'), T<T'.
 
 % classification of collision (what is the position before the collision? -> in which direction does one of the robots move? -> right=1, up=2, down=3)
-ccol((X,Y),T,1) :- cmerge_pollision((X,Y),T), fcol(T), pos(robot(R),(X-1,Y),T-1), pos(robot(R'),(X+1,Y),T-1), R!=R'.
+ccol((X,Y),T,1) :- collision((X,Y),T), fcol(T), pos(robot(R),(X-1,Y),T-1), pos(robot(R'),(X+1,Y),T-1), R!=R'.
 ccol((X,Y),T,2) :- collision((X,Y),T), fcol(T), pos(robot(R),(X,Y+1),T-1), pos(robot(R'),(X,Y-1),T-1), R!=R'.
 ccol((X,Y),T,1) :- collision((X,Y),T), fcol(T), pos(robot(R),(X-1,Y),T-1), pos(robot(R'),(X,Y+1),T-1), R!=R'.
 ccol((X,Y),T,2) :- collision((X,Y),T), fcol(T), pos(robot(R),(X+1,Y),T-1), pos(robot(R'),(X,Y+1),T-1), R!=R'.
