@@ -53,7 +53,14 @@ pool((X,Y),(X',Y),1,S) :- switching_places((X,Y),T,R,R',1), not solvable((X,Y),T
 switching_places((X',Y),T',R,R',1) :- switching_places((X,Y),T,R,R',1), pool((X,Y),(X',Y),1,S), mpool((X,Y),(X',Y),1,S), T'=T+S.
 occurs(object(robot,R),action(move,(1,0)),(T+1)..T') :- switching_places((X,Y),T,R,R',1), mpool((X,Y),(X',Y),1,S), switching_places((X',Y),T',R,R',1).
 occurs(object(robot,R'),action(move,(1,0)),(T+1)..T') :- switching_places((X,Y),T,R,R',1), mpool((X,Y),(X',Y),1,S), switching_places((X',Y),T',R,R',1).
-
+%%%
+% with pooling
+% one robot needs to move to the original collision
+%occurs(object(robot,R'),action(move,(-1,0)),(T'+2)..(T'+S+1)) :- collision_class((X,Y),T,R,R',1), mpool((X,Y),(X',Y),1,S), collision_class((X',Y),T',R,R',1), solvable_collision((X',Y),T',1,1).
+% adopt plans from fixpoints respectively
+%occurs(object(robot,R),action(move,(U,V)),T+2) :- occurs_(object(robot,R),action(move,(U,V)),T), solvable_collision((X,Y),T',1,1), collision_class((X,Y),T',R,R',1), T>=T', mpool((_,Y),(X,Y),1,_).
+%occurs(object(robot,R'),action(move,(U,V)),T+1+(2*S)) :- occurs_(object(robot,R'),action(move,(U,V)),T), collision_class((X,Y),T',R,R',1), T>=T', mpool((X,Y),(_,Y),1,S).
+%%%
 
 #show.
 

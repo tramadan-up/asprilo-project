@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-HRZN=16
+HRZN=2
 
 clingo $@ --outf=0 -V0 --out-atomf=%s. --quiet=1,2,2 -c horizon=${HRZN} -c rid=1 -c oid=1 asprilo-encodings/m/merge/encoding-m.lp lab/instance.lp | head -n1 > lab/individual_plans/plan_r1.lp
 

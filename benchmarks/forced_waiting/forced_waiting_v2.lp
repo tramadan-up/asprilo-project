@@ -1,5 +1,7 @@
 % forced_waiting_v2.lp
 % horizon=16
+% horizon robot 1 = 8
+% horizon robot 2 = 8
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Grid size X: 9

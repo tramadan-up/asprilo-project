@@ -1,54 +1,25 @@
 % some text
-#include "./rightleft_collision_left.lp".
+#include "./collision_detection.lp".
+#include "./collision_classification.lp".
+#include "./resolution/horizontal_collision_left.lp".
+#include "./resolution/horizontal_collision_right.lp".
+#include "./resolution/vertical_collision_top.lp".
+#include "./resolution/vertical_collision_bottom.lp".
 
-% collision after horizon restriction (bc there has to be a first collision)
-collision((1,1),H+10) :- hrzn(H).
-% detect collisions
-collision((X,Y),T) :- pos(robot(R),(X,Y),T), pos(robot(R'),(X,Y),T), R!=R'.
+% adopt plans until current collision
+occurs(object(robot,R),action(move,(U,V)),T) :- occurs_(object(robot,R),action(move,(U,V)),T), current_collision((_,_),T',R,R'), T<T'.
+occurs(object(robot,R'),action(move,(U,V)),T) :- occurs_(object(robot,R'),action(move,(U,V)),T), current_collision((_,_),T',R,R'), T<T'.
 
-% extract first collison
-1{fcol(T): collision((_,_),T), collision((_,_),T'), T<=T'}1.
-:- fcol(T), collision((_,_),T'), T>T'.
+% adopt plans after collision
+occurs(object(robot,R'),action(move,(U,V)),T+1) :- occurs_(object(robot,R'),action(move,(U,V)),T), solvable_collision((X,Y),T',_), collision_class((X,Y),T',R,R',_), T>=T'.
+occurs(object(robot,R),action(move,(U,V)),T+2) :- occurs_(object(robot,R),action(move,(U,V)),T), solvable_collision((X,Y),T',_), collision_class((X,Y),T',R,R',_), T>T'.
 
-% adopt plan until first collision
-occurs(object(robot,R),action(move,(U,V)),T) :- occ(object(robot,R),action(move,(U,V)),T), not collision((_,_),T), fcol(T'), T<T'.
-
-% classification of collision (what is the position before the collision? -> in which direction does one of the robots move? -> right=1, up=2, down=3)
-ccol((X,Y),T,1) :- collision((X,Y),T), fcol(T), pos(robot(R),(X-1,Y),T-1), pos(robot(R'),(X+1,Y),T-1), R!=R'.
-ccol((X,Y),T,2) :- collision((X,Y),T), fcol(T), pos(robot(R),(X,Y+1),T-1), pos(robot(R'),(X,Y-1),T-1), R!=R'.
-ccol((X,Y),T,1) :- collision((X,Y),T), fcol(T), pos(robot(R),(X-1,Y),T-1), pos(robot(R'),(X,Y+1),T-1), R!=R'.
-ccol((X,Y),T,2) :- collision((X,Y),T), fcol(T), pos(robot(R),(X+1,Y),T-1), pos(robot(R'),(X,Y+1),T-1), R!=R'.
-ccol((X,Y),T,1) :- collision((X,Y),T), fcol(T), pos(robot(R),(X-1,Y),T-1), pos(robot(R'),(X,Y-1),T-1), R!=R'.
-ccol((X,Y),T,3) :- collision((X,Y),T), fcol(T), pos(robot(R),(X+1,Y),T-1), pos(robot(R'),(X,Y-1),T-1), R!=R'.
-
-% one robot moves right
-occurs(object(robot,R),action(move,(1,0)),T) :- ccol((X,Y),T,C), pos(robot(R),(X-1,Y),T-1), pos(robot(R),(X,Y),T), C==1.
-
-% one robot moves up
-occurs(object(robot,R),action(move,(0,1)),T) :- ccol((X,Y),T,C), pos(robot(R),(X,Y+1),T-1), pos(robot(R),(X,Y),T), C==2.
-
-% one robot moves down
-occurs(object(robot,R),action(move,(0,-1)),T) :- ccol((X,Y),T,C), pos(robot(R),(X,Y-1),T-1), pos(robot(R),(X,Y),T), C==3.
-
-
-% switching places (collision is: 1=left, 2=right, 3=up, 4=down)
-% normally switching places
-switching_places((X,Y),T,R,R',1) :- collision((X,Y),T), fcol(T), pos(robot(R),(X,Y),T-1), pos(robot(R'),(X+1,Y),T-1), R!=R'.
-switching_places((X,Y),T,R,R',2) :- collision((X,Y),T), fcol(T), pos(robot(R),(X,Y),T-1), pos(robot(R'),(X-1,Y),T-1), R!=R'.
-switching_places((X,Y),T,R,R',3) :- collision((X,Y),T), fcol(T), pos(robot(R),(X,Y),T-1), pos(robot(R'),(X,Y-1),T-1), R!=R'.
-switching_places((X,Y),T,R,R',4) :- collision((X,Y),T), fcol(T), pos(robot(R),(X,Y),T-1), pos(robot(R'),(X,Y+1),T-1), R!=R'.
-% robots are forced to switch places
-switching_places((X,Y),T,R,R',1) :- ccol((X,Y),T,C), pos(robot(R),(X+1,Y),T+1), pos(robot(R'),(X,Y),T), pos(robot(R'),(X+1,Y),T-1), occurs(object(robot,R),action(move,(_,_)),T), R!=R'.
-switching_places((X,Y),T,R,R',2) :- ccol((X,Y),T,C), pos(robot(R),(X-1,Y),T+1), pos(robot(R'),(X,Y),T), pos(robot(R'),(X-1,Y),T-1), occurs(object(robot,R),action(move,(_,_)),T), R!=R'.
-switching_places((X,Y),T,R,R',3) :- ccol((X,Y),T,C), pos(robot(R),(X,Y+1),T+1), pos(robot(R'),(X,Y),T), pos(robot(R'),(X,Y+1),T-1), occurs(object(robot,R),action(move,(_,_)),T), R!=R'.
-switching_places((X,Y),T,R,R',4) :- ccol((X,Y),T,C), pos(robot(R),(X,Y-1),T+1), pos(robot(R'),(X,Y),T), pos(robot(R'),(X,Y-1),T-1), occurs(object(robot,R),action(move,(_,_)),T), R!=R'.
+%:- { occurs(object(robot,R),action(move,(_,_)),T) } != 1, isRobot(R), time(T).
 
 
 #show.
-
+#show collision_pattern/3.
+#show collision_class/5.
+#show current_collision/4.
+#show solvable_collision/3.
 #show occurs/3.
-#show switching_places/5.
-#show position/1.
-#show solvable/4.
-#show pool/4.
-#show mpool/4.

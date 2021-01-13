@@ -1,9 +1,6 @@
-#include "../../input-m.lp".
+#include "../input.lp".
 
 %#const horizon=1.
-%#const rid=1.
-%#const oid=1.
-range(horizon).
 time(1..horizon).
 
 direction((X,Y)) :- X=-1..1, Y=-1..1, |X+Y|=1.
