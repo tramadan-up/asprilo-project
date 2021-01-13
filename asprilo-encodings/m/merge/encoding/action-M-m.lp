@@ -1,4 +1,4 @@
-#include "../../input-m.lp".
+#include "../../../input-m.lp".
 
 %#const horizon=1.
 %#const rid=1.
