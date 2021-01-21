@@ -7,14 +7,21 @@
 #include "./resolution/vertical_collision_bottom.lp".
 
 % adopt plans until current collision
-occurs(object(robot,R),action(move,(U,V)),T) :- occurs_(object(robot,R),action(move,(U,V)),T), current_collision((_,_),T',R,R'), T<T'.
-occurs(object(robot,R'),action(move,(U,V)),T) :- occurs_(object(robot,R'),action(move,(U,V)),T), current_collision((_,_),T',R,R'), T<T'.
+occurs(object(robot,R),action(move,(U,V)),T) :- occurs_(object(robot,R),action(move,(U,V)),T), current_collision((_,_),T',R,R'), T<T', not switching_places(T',R,R',_).
+occurs(object(robot,R'),action(move,(U,V)),T) :- occurs_(object(robot,R'),action(move,(U,V)),T), current_collision((_,_),T',R,R'), T<T', not switching_places(T',R,R',_).
 
 % adopt plans after collision
-occurs(object(robot,R'),action(move,(U,V)),T+1) :- occurs_(object(robot,R'),action(move,(U,V)),T), solvable_collision((X,Y),T',_), collision_class((X,Y),T',R,R',_), T>=T'.
-occurs(object(robot,R),action(move,(U,V)),T+2) :- occurs_(object(robot,R),action(move,(U,V)),T), solvable_collision((X,Y),T',_), collision_class((X,Y),T',R,R',_), T>T'.
+occurs(object(robot,R'),action(move,(U,V)),T+1) :- occurs_(object(robot,R'),action(move,(U,V)),T), solvable_collision((X,Y),T',_), collision_class((X,Y),T',R,R',_), T>=T', not switching_places(T',R,R',_).
+occurs(object(robot,R),action(move,(U,V)),T+2) :- occurs_(object(robot,R),action(move,(U,V)),T), solvable_collision((X,Y),T',_), collision_class((X,Y),T',R,R',_), T>T', not switching_places(T',R,R',_).
 
-%:- { occurs(object(robot,R),action(move,(_,_)),T) } != 1, isRobot(R), time(T).
+
+
+
+occurs(object(robot,R),action(move,(U,V)),T) :- occurs_(object(robot,R),action(move,(U,V)),T), current_collision((_,_),T',R,R'), T<=T', switching_places(T',R,R',_).
+occurs(object(robot,R'),action(move,(U,V)),T) :- occurs_(object(robot,R'),action(move,(U,V)),T), current_collision((_,_),T',R,R'), T<=T', switching_places(T',R,R',_).
+
+occurs(object(robot,R'),action(move,(U,V)),T) :- occurs_(object(robot,R'),action(move,(U,V)),T), solvable_collision((X,Y),T',_), collision_class((X,Y),T',R,R',_), T>T', switching_places(T',R,R',_).
+occurs(object(robot,R),action(move,(U,V)),T+2) :- occurs_(object(robot,R),action(move,(U,V)),T), solvable_collision((X,Y),T',_), collision_class((X,Y),T',R,R',_), T>T', switching_places(T',R,R',_).
 
 
 #show.
