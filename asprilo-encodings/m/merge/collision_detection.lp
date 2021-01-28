@@ -18,7 +18,7 @@ collision((X,Y),T,R,R') :- position_(robot(R),(X,Y),T), position_(robot(R'),(X,Y
 current_collision((X,Y),T,R,R') :- collision((X,Y),T,R,R'), first_collision(T), not current_collision((_,_),T,R',R).
 
 
-% bla
+% robots 'naturally' switching places
 switching_places(T,R,R',1) :- current_collision((X,Y),T,R,R'), position_(robot(R),(X,Y),T), position_(robot(R'),(X+1,Y),T), position_(robot(R),(X+1,Y),T+1), position_(robot(R'),(X,Y),T+1), R!=R'.
 
 switching_places(T,R,R',2) :- current_collision((X,Y),T,R,R'), position_(robot(R),(X,Y),T), position_(robot(R'),(X-1,Y),T), position_(robot(R),(X-1,Y),T+1), position_(robot(R'),(X,Y),T+1), R!=R'.
