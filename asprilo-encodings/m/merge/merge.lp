@@ -28,7 +28,7 @@ occurs(object(robot,R),action(move,(U,V)),T+2) :- occurs_(object(robot,R),action
 % case 3: after moving to a gap
 occurs(object(robot,R),action(move,(U,V)),T+2) :- occurs_(object(robot,R),action(move,(U,V)),T), T>=T'+1, first_gap(T'), gap((X,Y),(X',Y'),T',S).
 
-occurs(object(robot,R'),action(move,(U,V)),T+(2*S)+1) :- occurs_(object(robot,R'),action(move,(U,V)),T), T>=T', first_gap(T_), gap((X,Y),(X',Y'),T_,S), collision_class((X,Y),T',R,R',_).
+occurs(object(robot,R'),action(move,(U,V)),T+(2*S)+1) :- occurs_(object(robot,R'),action(move,(U,V)),T), T>T', first_gap(T_), gap((X,Y),(X',Y'),T_,S), collision_class((X,Y),T',R,R',_).
 
 
 %{ occurs(object(robot,R),action(move,D),T) : direction(D) } 1 :- isRobot(R), time(T).

@@ -1,4 +1,4 @@
-% some text
+% gap detection
 
 gap((X,Y),(X',Y'),T',S) :- collision_class((X,Y),T,R,R',C), not solvable_collision((X,Y),T,_), position((X',Y'-1)), position((X'-1,Y')), position((X'+1,Y')), position_(robot(R),(X',Y'),T'), S=T'-T, T'>T.
 gap((X,Y),(X',Y'),T',S) :- collision_class((X,Y),T,R,R',C), not solvable_collision((X,Y),T,_), position((X',Y'+1)), position((X'-1,Y')), position((X'+1,Y')), position_(robot(R),(X',Y'),T'), S=T'-T, T'>T.
