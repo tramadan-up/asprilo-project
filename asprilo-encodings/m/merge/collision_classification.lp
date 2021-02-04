@@ -24,7 +24,7 @@ collision_pattern((X,Y),T,4) :- current_collision((X,Y),T,R,R'), position_(robot
 collision_pattern((X,Y),T,4) :- current_collision((X,Y),T,R,R'), position_(robot(R),(X,Y-1),T-1), position_(robot(R'),(X-1,Y),T-1), R!=R'.
 collision_pattern((X,Y),T,4) :- current_collision((X,Y),T,R,R'), position_(robot(R),(X,Y-1),T-1), position_(robot(R'),(X+1,Y),T-1), R!=R'.
 
-% robot movement
+% singular robot movement
 % dominant robot moves right
 occurs(object(robot,R),action(move,(1,0)),T) :- collision_pattern((X,Y),T,C), current_collision((X,Y),T,R,_), position_(robot(R),(X-1,Y),T-1), position_(robot(R),(X,Y),T), C==1.
 
@@ -44,28 +44,27 @@ collision_class((X,Y),T,R,R',1) :- collision_pattern((X,Y),T,_), current_collisi
 
 collision_class((X,Y),T,R,R',1) :- switching_places(T,R,R',1), current_collision((X,Y),T,R,R').
 
+collision_class((X,Y),T,R,R',1) :- current_collision((X,Y),T,R,R'), position_(robot(R),(X,Y),T'), position_(robot(R'),(X+1,Y),T-1), not position_(robot(R),_,T'+P), S=T-T' , P=1..S, T'<T.
+
 % class 2: robot 1 and 2 form a horizontal line, collision is right
 collision_class((X,Y),T,R,R',2) :- collision_pattern((X,Y),T,_), current_collision((X,Y),T,R,R'), position_(robot(R'),(X-1,Y),T-1), occurs(object(robot,R),action(move,(_,_)),T), R!=R'.
 
 collision_class((X,Y),T,R,R',2) :- switching_places(T,R,R',2), current_collision((X,Y),T,R,R').
+
+collision_class((X,Y),T,R,R',2) :- current_collision((X,Y),T,R,R'), position_(robot(R),(X,Y),T'), position_(robot(R'),(X-1,Y),T-1), not position_(robot(R),_,T'+P), S=T-T' , P=1..S, T'<T.
 
 % class 3: robot 1 and 2 form a vertical line, collision is top
 collision_class((X,Y),T,R,R',3) :- collision_pattern((X,Y),T,_), current_collision((X,Y),T,R,R'), position_(robot(R'),(X,Y+1),T-1), occurs(object(robot,R),action(move,(_,_)),T), R!=R'.
 
 collision_class((X,Y),T,R,R',3) :- switching_places(T,R,R',3), current_collision((X,Y),T,R,R').
 
+collision_class((X,Y),T,R,R',3) :- current_collision((X,Y),T,R,R'), position_(robot(R),(X,Y),T'), position_(robot(R'),(X,Y+1),T-1), not position_(robot(R),_,T'+P), S=T-T' , P=1..S, T'<T.
+
 % class 4: robot 1 and 2 form a vertical line, collision is bottom
 collision_class((X,Y),T,R,R',4) :- collision_pattern((X,Y),T,_), current_collision((X,Y),T,R,R'), position_(robot(R'),(X,Y-1),T-1), occurs(object(robot,R),action(move,(_,_)),T), R!=R'.
 
 collision_class((X,Y),T,R,R',4) :- switching_places(T,R,R',4), current_collision((X,Y),T,R,R').
 
-
-
-
-
-
-
-
-
+collision_class((X,Y),T,R,R',4) :- current_collision((X,Y),T,R,R'), position_(robot(R),(X,Y),T'), position_(robot(R'),(X,Y-1),T-1), not position_(robot(R),_,T'+P), S=T-T' , P=1..S, T'<T.
 
 
