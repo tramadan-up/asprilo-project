@@ -1,3 +1,10 @@
+% grouping.lp
+% horizon=?
+% horizon robot 1 = 5
+% horizon robot 2 = 5
+% horizon robot 3 = 5
+% horizon robot 4 = 5
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Grid size X: 5
 %Grid size Y: 5
