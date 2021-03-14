@@ -5,12 +5,10 @@
 time(1..T+1) :- first_collision(T).
 time(T+1..(R+S)) :- first_collision(T), range(R,_), steps(S,_).
 % set time for randomly generated moves
-random_time((T')..(T'+8)) :- first_collision(T').
-random_time_end((T'-B)..(T')) :- max_time(T'), b(B).
+random_time((T')..(T'+5)) :- first_collision(T').
 % import first position of each robot
 position(robot(R),C,0) :- position_im(robot(R),C,0).
-a(5).
-b(A-1) :- a(A).
+
 % collision detection
 % robots want to enter the same node simultaneously
 collision((X,Y),T,robot(R),robot(R')) :- position_im(robot(R),(X,Y),T), position_im(robot(R'),(X,Y),T), R!=R', not collision((X,Y),T,robot(R'),robot(R)).
@@ -46,33 +44,18 @@ random_position(robot(R),C,T-1) :- position(robot(R),C,T-1), first_collision(T).
 
 % set checkpoints
 % set checkpoint after collision, if goal is far away
-checkpoint(C,robot(R),1,1) :-  position_im(robot(R),C,T+1), first_collision(T), max_range(T',robot(R)), T'-T>=4.
-% set checkpoint at goal if its near
-checkpoint(C,robot(R),1,2) :-  position_im(robot(R),C,T'), first_collision(T), max_range(T',robot(R)), T'-T<4.
-:- checkpoint(C,robot(R),1,2), not position(robot(R),C,T), max_time(T).
-:- checkpoint(C,robot(R),1,1), not position(robot(R),C,_).
+checkpoint(C,robot(R),1) :-  position_im(robot(R),C,T+1), first_collision(T), max_range(T',robot(R)), T'-T>=4.
+checkpoint(C,robot(R),2) :-  position_im(robot(R),C,T'), first_collision(T), max_range(T',robot(R)), T'-T<4.
+:- checkpoint(C,robot(R),2), not position(robot(R),C,T), max_time(T).
+:- checkpoint(C,robot(R),1), not position(robot(R),C,_).
 % calculate and minimize steps for each robot
-steps(S,robot(R)) :- random_position(robot(R),C,T), checkpoint(C,robot(R),1,_), first_collision(T'), S=T-(T'-1).
+steps(S,robot(R)) :- random_position(robot(R),C,T), checkpoint(C,robot(R),_), first_collision(T'), S=T-(T'-1).
 #minimize {S: steps(S,_) }.
 
 % set movement according to amount of steps
 move(robot(R),D,T) :- random_move(robot(R),D,T), steps(S,robot(R)), first_collision(T'), T<=(T'-1)+S.
 % adopt original plan after that
-move(robot(R),D,T+S-2) :- move_im(robot(R),D,T), steps(S,robot(R)), first_collision(T'), checkpoint(_,robot(R),1,1), max_time(T_), a(A), T>T'+1, T<=T_-A.
-
-% set first random position before end randomization
-random_position_end(robot(R),C,T-A) :- position(robot(R),C,T-A), max_time(T), a(A).
-
-% generate random movement
-{ random_move_end(robot(R),D,T) : direction(D) } :- random_time_end(T), isRobot(robot(R)), max_time(T'), b(B), T>=T'-B.
-%set new checkpoint
-checkpoint(C,robot(R),2,2) :-  position_im(robot(R),C,T), max_range(T,robot(R)), not checkpoint(_,robot(R),1,2).
-:- checkpoint(C,robot(R),2,2), not position(robot(R),C,T), max_time(T).
-
-%steps_end(S,robot(R)) :- random_position(robot(R),C,T), checkpoint(C,robot(R),2,_), max_time(T'), S=T'-(T-1).
-%#minimize {S: steps_end(S,_) }.
-% set movement according to amount of steps
-move(robot(R),D,T) :- random_move_end(robot(R),D,T), max_time(T'), b(B), T<=T', T>=T'-B.
+move(robot(R),D,T+S-2) :- move_im(robot(R),D,T), steps(S,robot(R)), first_collision(T'), checkpoint(_,robot(R),1), T>T'+1.
 
 % translating moves into positions
 %position(robot(R),C,T) :- move(robot(R),D,T), position(robot(R),C',T-1), nextto(C',D,C).
@@ -83,17 +66,16 @@ move(robot(R),D,T) :- random_move_end(robot(R),D,T), max_time(T'), b(B), T<=T', 
 % restrictions to robot movement and positioning
 :- move(robot(R),D,T), move(robot(R),D',T), D!=D'.
 :- random_move(robot(R),D,T), random_move(robot(R),D',T), D!=D'.
-:- random_move_end(robot(R),D,T), random_move_end(robot(R),D',T), D!=D'.
 :- position(robot(R),C,_), isRobot(robot(R)), not position(C).
 :- position(robot(R),C,T), position(robot(R'),C,T), R!=R'.
 :- random_position(robot(R),C,_), isRobot(robot(R)), not position(C).
 :- random_position(robot(R),C,T), random_position(robot(R'),C,T), R!=R'.
-:- random_position_end(robot(R),C,_), isRobot(robot(R)), not position(C).
-:- random_position_end(robot(R),C,T), random_position_end(robot(R'),C,T), R!=R'.
+
 %:- position(robot(R),C,T-1), position(robot(R),C',T), position(robot(R'),C',T-1), position(robot(R'),C,T), R!=R'.
 %:- random_position(robot(R),C,T-1), random_position(robot(R),C',T), random_position(robot(R'),C',T-1), random_position(robot(R'),C,T), R!=R'.
 
 #show.
 #show occurs(object(robot,R), action(move,D),     T) :    move(robot(R),D,T).
 #show max_range/2.
+#show checkpoint/3.
 #show range/2.

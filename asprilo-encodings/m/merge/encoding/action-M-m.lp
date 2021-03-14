@@ -3,10 +3,11 @@
 %#const horizon=1.
 %#const rid=1.
 %#const oid=1.
-range(horizon).
+range(horizon,R) :- R==rid.
 time(1..horizon).
 
 direction((X,Y)) :- X=-1..1, Y=-1..1, |X+Y|=1.
+%direction((0,0)).
 nextto((X,Y),(DX,DY),(X',Y')) :- direction((DX,DY)), position((X,Y)), position((X',Y')),
                                  (X,Y)=(X'-DX,Y'-DY), (X',Y')=(X+DX,Y+DY).
 
