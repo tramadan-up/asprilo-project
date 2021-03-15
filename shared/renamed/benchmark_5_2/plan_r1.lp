@@ -1,0 +1,1 @@
+occurs_im(object(robot,1),action(move,(0,1)),1).

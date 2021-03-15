@@ -1,0 +1,10 @@
+occurs_im(object(robot,5),action(move,(1,0)),1).
+occurs_im(object(robot,5),action(move,(1,0)),2).
+occurs_im(object(robot,5),action(move,(1,0)),3).
+occurs_im(object(robot,5),action(move,(1,0)),4).
+occurs_im(object(robot,5),action(move,(0,-1)),5).
+occurs_im(object(robot,5),action(move,(0,-1)),6).
+occurs_im(object(robot,5),action(move,(0,-1)),7).
+occurs_im(object(robot,5),action(move,(0,-1)),8).
+occurs_im(object(robot,5),action(move,(0,-1)),9).
+occurs_im(object(robot,5),action(move,(0,-1)),10).

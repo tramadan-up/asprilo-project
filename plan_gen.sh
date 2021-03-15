@@ -6,9 +6,9 @@ rm lab/merged_plan2.lp
 rm lab/merged_plan3.lp
 
 # VARIABLES
-H_R1=8
-H_R2=8
-#H_R3=14
+H_R1=3
+H_R2=3
+H_R3=3
 #H_R4=14
 #H_R5=14
 #H_R6=16
@@ -33,7 +33,7 @@ clingo $@ --outf=0 -V0 --out-atomf=%s. --quiet=1,2,2 -c horizon=${H_R1} -c rid=1
 clingo $@ --outf=0 -V0 --out-atomf=%s. --quiet=1,2,2 -c horizon=${H_R2} -c rid=2 -c oid=2 asprilo-encodings/m/merge/encoding/encoding-m.lp lab/instance.lp | head -n1 > lab/individual_plans/plan_r2.lp
 
 # generating plan for robot/order with id = 3
-#clingo $@ --outf=0 -V0 --out-atomf=%s. --quiet=1,2,2 -c horizon=${H_R3} -c rid=3 -c oid=3 asprilo-encodings/m/merge/encoding/encoding-m.lp lab/instance.lp | head -n1 > lab/individual_plans/plan_r3.lp
+clingo $@ --outf=0 -V0 --out-atomf=%s. --quiet=1,2,2 -c horizon=${H_R3} -c rid=3 -c oid=3 asprilo-encodings/m/merge/encoding/encoding-m.lp lab/instance.lp | head -n1 > lab/individual_plans/plan_r3.lp
 
 # generating plan for robot/order with id = 4
 #clingo $@ --outf=0 -V0 --out-atomf=%s. --quiet=1,2,2 -c horizon=${H_R4} -c rid=4 -c oid=4 asprilo-encodings/m/merge/encoding/encoding-m.lp lab/instance.lp | head -n1 > lab/individual_plans/plan_r4.lp
@@ -87,5 +87,11 @@ clingo $@ --outf=0 -V0 --out-atomf=%s. --quiet=1,2,2 -c horizon=${H_R2} -c rid=2
 #clingo $@ --outf=0 -V0 --out-atomf=%s. --quiet=1,2,2 -c horizon=${H_R20} -c rid=20 -c oid=20 asprilo-encodings/m/merge/encoding/encoding-m.lp lab/instance.lp | head -n1 > lab/individual_plans/plan_r20.lp
 
 
-#clingo asprilo-encodings/m/merge/merge.lp lab/individual_plans/{plan_r1.lp,plan_r2.lp,plan_r3.lp,plan_r4.lp,plan_r5.lp,plan_r6.lp,plan_r7.lp,plan_r8.lp,plan_r9.lp,plan_r10.lp,plan_r11.lp,plan_r12.lp,plan_r13.lp,plan_r14.lp,plan_r15.lp,plan_r16.lp,plan_r17.lp,plan_r18.lp,plan_r19.lp,plan_r20.lp}
+#clingo asprilo-encodings/m/merge/merge_v0_5.lp lab/individual_plans/{plan_r1.lp,plan_r2.lp,plan_r3.lp}
 
+
+#clingo $@ --outf=0 -V0 --out-atomf=%s. --quiet=1,2,2 asprilo-encodings/m/merge/merge.lp shared/benchmark_1/{plan_r1.lp,plan_r2.lp,plan_r3.lp} | head -n1 > lab/merged_plan1.lp
+
+#clingo $@ --outf=0 -V0 --out-atomf=%s. --quiet=1,2,2 asprilo-encodings/m/merge/merge.lp lab/individual_plans/{plan_r1.lp,plan_r2.lp,plan_r3.lp,plan_r4.lp,plan_r5.lp,plan_r6.lp,plan_r7.lp,plan_r8.lp} | head -n1 > lab/merged_plan1.lp
+
+#viz -t shared/benchmark_1/instance.lp lab/merged_plan1.lp
