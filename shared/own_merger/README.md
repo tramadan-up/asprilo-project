@@ -33,3 +33,5 @@ I will list those for each benchmark in the following.
 
 Basic usage:
 `clingo -c rm=4 merge.lp ../renamed/benchmark_1_1/{instance.lp,plan_r1.lp,plan_r2.lp,plan_r3.lp}`
+
+You can run the scripts `run_benchmark_gX.sh` for merging and visualizing all benchmarks that are solved by the merger.
