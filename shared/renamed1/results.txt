@@ -1,0 +1,25 @@
+benchmark_1_1: UNSATISFIABLE / no Solution found (0.025s) H=5
+benchmark_1_2: UNSATISFIABLE / no Solution found (1.318s) H=19
+benchmark_1_3: 0.0756s (0.0188s) H=9
+benchmark_1_4: 0.268s (0.0588s) H=15
+
+benchmark_2_1: 0.0750s (0.0244s) H=7
+benchmark_2_2: 0.0161s (0.0043s) H=4
+benchmark_2_3: 116.0882s (46.1061s) H=29
+benchmark_2_4: 180.6336s (43.3371s) H=62
+
+benchmark_3_1: UNSATISFIABLE / no Solution found (0.032s) H=7
+benchmark_3_2: 0.0162s (0.0036s) H=4
+benchmark_3_3: 0.0933s (0.0304s) H=8
+benchmark_3_4: UNSATISFIABLE
+
+benchmark_4_1: 0.0753s (0.0241s) H=11
+benchmark_4_2: 1.5298s (0.5001s) H=13
+benchmark_4_3: 0.1101s (0.0383s) H=10
+benchmark_4_4: 2.0178s (0.5363s) H=21
+
+benchmark_5_1: 0.0219s (0.0068s) H=5
+benchmark_5_2: 0.0145s (0.0057s) H=3
+benchmark_5_3: 0.0241s (0.0057s) H=6
+benchmark_5_4: 0.2174s (0.0806s) H=10
+

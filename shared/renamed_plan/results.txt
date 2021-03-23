@@ -1,0 +1,24 @@
+benchmark_1_1: UNSATISFIABLE H=5
+benchmark_1_2: UNSATISFIABLE H=19
+benchmark_1_3: 11.847s (CPU: 11.846) H=10
+benchmark_1_4: 3.420s (CPU: 3.419) H=16
+
+benchmark_2_1: UNSATISFIABLE (8.881s) H=10
+benchmark_2_2: 1.318s H=6
+benchmark_2_3: killed H=40
+benchmark_2_4: killed H=100
+
+benchmark_3_1: 0.344s (CPU: 0.342s) H=7
+benchmark_3_2: 0.058s (CPU: 0.051s) H=4
+benchmark_3_3: 2.892s (CPU: 2.884s) H=9
+benchmark_3_4: 1.976s (CPU: 1.973s) H=15
+
+benchmark_4_1: 178.564s (CPU: 178.547s) H=17
+benchmark_4_2: killed
+benchmark_4_3: 460.838s (CPU: 460.818s) H=10
+benchmark_4_4: killed
+
+benchmark_5_1: 0.195s (CPU: 0.191s) H=5
+benchmark_5_2: UNSATISFIABLE (0.137s) H=3
+benchmark_5_3: 1.273s H=14
+benchmark_5_4: killed

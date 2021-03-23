@@ -45,10 +45,6 @@ wait(R2,T) :- move(R2,(DX,DY),T,N), position(R2,C2',T-1), nextto(C2',(DX,DY),C),
 %a new wait to work in tandem with the no_dodge flag (as seen in benchmark16 mod1), forcing the higher priority robot to wait in the edge case
 wait(R1,T) :- move(R1,D1,T,_), move(R2,D2,T,_), position(R1,C1',T-1), R2>R1, nextto(C1',D1,C), position(R2,C2',T-1), nextto(C2',D2,C), no_dodge(R2,T).
 
-%wait specifically for the 3 robot tunnel scenario (bench 18 mod1), experimental
-%wait(R2,T) :- move(R1,D1,T,_), move(R2,D2,T,_), position(R1,C1',T-1), nextto(C1',D1,C), position(R2,C2',T-1), nextto(C2',D2,C), dodge_coll(R1,R3,T), back_dodge(R3,T), robot(R3), R3!=R1, R3!=R2.
-%wait(R2,T) :- move(R1,D1,T,_), move(R2,D2,T,_), position(R1,C1',T-1), nextto(C1',D1,C), position(R2,C2',T-1), nextto(C2',D2,C), dodge_coll(R3,R1,T), back_dodge(R3,T), robot(R3), R3!=R1, R3!=R2.
-
 %B-domain specific wait
 
 wait(R2,T) :- move(R2,D,T,N1), pickup(R1,_,T), position(R1,C1,T-1), position(R2,C2,T-1), nextto(C2,D,C1), not nmc_dodge(R2,T).
@@ -85,9 +81,6 @@ no_dodge(R2,T) :- not dodge_where(R2,_,T), dodge_coll(R1,R2,T), dodge_where(R1,_
 occ_dodge(R1,T) :- dodge_where(R1,(DX,DY),T), dodge_coll(R1,R2,T), position(R1,C1,T-1), position(R3,C3,T-1), nextto(C1,(DX,DY),C3), R3!=R2, R3!=R1, position(R4,C4,T-1), nextto(C1,(-DX,-DY),C4), R4!=R3, R4!=R2, R4!=R1, isRobot(R3), isRobot(R4).
 occ_dodge(R2,T) :- dodge_where(R2,(DX,DY),T), dodge_coll(R1,R2,T), position(R2,C2,T-1), position(R3,C3,T-1), nextto(C2,(DX,DY),C3), R3!=R2, R3!=R1, position(R4,C4,T-1), nextto(C2,(-DX,-DY),C4), R4!=R3, R4!=R2, R4!=R1, isRobot(R3), isRobot(R4).
 
-
-%occ_dodge(robot(1),3).
-
 %if robots encounter each other in a tunnel and one has to dodge backwards
 %doubled up here because our dodge_coll only checks for R2>R1; these are all possible first steps
 back_dodge(R1,T) :- dodge_coll(R1,R2,T), not dodge_where(R1,_,T), not dodge_where(R2,_,T), collision(R1,T-1,N1), collision(R2,T-1,N2), N2>N1, not back_dodge(R2,T).
@@ -122,10 +115,6 @@ deadend(R2,T) :- dodge_coll(R1,R2,T), back_dodge(R2,T-1), move(R1,D,T,_), positi
 %special case, where a robot has to "dodge backwards", say in a tunnel
 dodge_who(R1,D,T) :- move(R2,D,T+1,N), dodge_coll(R1,R2,T), back_dodge(R1,T).
 dodge_who(R2,D,T) :- move(R1,D,T+1,N), dodge_coll(R1,R2,T), back_dodge(R2,T).
-%special case for a dodging column, experimental potentially scrap this
-%dodge_who(R1,D,T) :- dodge_coll(R2,R3,T), robot(R2), robot(R3), back_dodge(R2,T), back_dodge(R1,T), dodge_who(R2,D,T), R1!=R2, R1!=R3.
-%dodge_who(R1,D,T) :- dodge_coll(R3,R2,T), robot(R2), robot(R3), back_dodge(R2,T), back_dodge(R1,T), dodge_who(R2,D,T), R1!=R2, R1!=R3.
-
 
 %apply the dodge move to final move/3 in preparation of merge and insert a (step_)move back to the previously vacated spot from where to continue
 move(R,D,T) :- dodge_who(R,D,T), collision(R,T-1,N).

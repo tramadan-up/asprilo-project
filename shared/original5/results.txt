@@ -1,0 +1,25 @@
+benchmark_1_1: UNSAT 50.821s (CPU: 50.818) H=5 C=8
+benchmark_1_2: UNSAT 10.864 (CPU: 10.858s) H=19 C=5
+benchmark_1_3: 0.137s (CPU: 0.137) H=9 C=2
+benchmark_1_4: 0.470s (CPU: 0.469)H=15 C=4
+
+benchmark_2_1: 4.417s (CPU: ) H=7 C=5
+benchmark_2_2: 0.033s (CPU: ) H=4 C=1
+benchmark_2_3: killed C=10
+benchmark_2_4: killed C=10
+
+benchmark_3_1: 0.011s (CPU: 0,011) H=7 C=1
+benchmark_3_2: 0.007s (CPU: 0,006s) H=4 C=1
+benchmark_3_3: 2.615s (CPU: 2,615) H=8 C=5
+benchmark_3_4: UNSATISFIABLE
+
+benchmark_4_1: UNSAT 241.153 (CPU: 241,143s) C=14
+benchmark_4_2: 303.478s (CPU: 303,465) H=15 C=6
+benchmark_4_3: 2.550s (CPU: 2,549) H=10 C=1
+benchmark_4_4: 367.966s (CPU: 367,957) H=23 C=1
+
+benchmark_5_1: 0.012s (CPU: 0,011s) H=5 C=1
+benchmark_5_2: 0.059s (CPU: 0,058s) H=3 C=3
+benchmark_5_3: 107.974s (CPU: 107,969s) H=14 C=9
+benchmark_5_4: 22.383s (CPU: 22,382s) H=9 C=3
+

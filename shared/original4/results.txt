@@ -1,0 +1,25 @@
+benchmark_1_1: 0.019s (CPU:0.016) H=7
+benchmark_1_2: 0.256s (CPU:0.256) H=19
+benchmark_1_3: 0.027s (CPU:0.027) H=9
+benchmark_1_4: 0.048s (CPU:0.048) H=16
+
+benchmark_2_1: UNSAT(0.030s) H=10
+benchmark_2_2: 0.013s (0.013s) H=10
+benchmark_2_3: killed H=40
+benchmark_2_4: killed H=100
+
+benchmark_3_1: 0.017s (0.013s) H=7
+benchmark_3_2: 0.006s (0.006s) H=4
+benchmark_3_3: 0.024s (0.023s) H=9
+benchmark_3_4: 0.024s (0.024s) H=15
+
+benchmark_4_1: 0.305s (0.305s) H=15
+benchmark_4_2: 0.424s (0.424s) H=15
+benchmark_4_3: 0.525s (0.525s) H=15
+benchmark_4_4: 0.327s (0.327s) H=25
+
+benchmark_5_1: 0.006s (0.006s) H=5
+benchmark_5_2: 0.0075s (0.007s) H=3
+benchmark_5_3: 0.034s (0.034s) H=14
+benchmark_5_4: 0.068s (0.068s) H=9
+

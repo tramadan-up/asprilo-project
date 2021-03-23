@@ -1,0 +1,27 @@
+benchmark_1_1: 0.023s H=5
+benchmark_1_2: 0.233s H=19
+benchmark_1_3: 0.085s H=7
+benchmark_1_4: 0.034s H=15
+
+benchmark_2_1: 0.025s H=5
+benchmark_2_2: 0.019s H=4
+benchmark_2_3: UNSATISFIABLE / takes too long
+benchmark_2_4: UNSATISFIABLE / takes too long
+
+benchmark_3_1: 0.013s H=5
+benchmark_3_2: 0.012s H=4
+benchmark_3_3: 0.020s H=6
+benchmark_3_4: UNSATISFIABLE
+
+benchmark_4_1: 0.079s H=17
+benchmark_4_2: 0.115s H=11
+benchmark_4_3: 0.200s H=4
+benchmark_4_4: 1.686s H=11
+
+benchmark_5_1: 0.012s H=5
+benchmark_5_2: UNSATISFIABLE
+benchmark_5_3: 0.026s H=14
+benchmark_5_4: UNSATISFIABLE / wrong result
+
+UNSATISFIABLE
+3.420s (CPU: 3.419)
